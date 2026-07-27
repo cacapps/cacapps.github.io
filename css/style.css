@@ -190,6 +190,11 @@ section:last-of-type { border-bottom: none; }
   min-height: 1.6em;
 }
 
+.about-block p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 #contact .links-row {
   flex-direction: column;
   align-items: flex-start;

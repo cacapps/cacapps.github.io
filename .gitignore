@@ -1,0 +1,4 @@
+# project videos are too large for GitHub (>100MB); host externally later
+media/lunar-landing/*.mp4
+media/orion-docking/*.mp4
+media/auto-service-adcs/*.mp4

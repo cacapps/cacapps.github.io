@@ -401,3 +401,12 @@ footer {
 .project-detail h2:first-of-type { margin-top: 0; }
 
 .project-detail p { color: var(--text-dim); }
+
+.project-detail p + p { margin-top: 14px; }
+
+.citation {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-top: 10px;
+}

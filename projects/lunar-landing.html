@@ -45,14 +45,24 @@
       </div>
 
       <h2>Description</h2>
-      <p><!-- TODO: write a deeper description of the lunar landing project --></p>
+      <p>The guidance problem is 6-DoF fuel-optimal powered descent with free final time, solved by successive convexification. Each iteration linearizes the nonconvex dynamics about the previous solution and solves the resulting convex subproblem in CVXPY/ECOS under a trust region, subject to glideslope, tilt, gimbal, and thrust constraints.</p>
+
+      <p>SCvx converges from a naive straight-line initial guess. However, T-SCVx replaces that guess with a learned prediction of the full trajectory so the solver starts near the solution manifold. The paper's contribution is the training distribution: rather than scattering initial conditions spherically around the nominal injection point, we trained on mission-informed dispersions generated from a GMAT NRHO to LLO transfer with an underperforming engine model, so the warm starts cover the errors the mission actually produces.</p>
+
+      <h2>Implementation</h2>
+      <p>The warm-start network took several architectures to get right. A single model predicting the whole trajectory at once fit the training data but returned guesses that were not physically realizable. In the end, what worked was smaller predictions each conditioned on everything predicted before it, and imposing the boundary conditions directly instead of learning them so the guess always satisfies its own endpoints.</p>
+
+      <p>Getting it flying in SpaceTeamsPRO was its own problem. The guidance is a C++ plugin paired with a Python solver process that joins the sim over its event bus, so a solver that takes seconds has to coexist with a sim running in real time. For verification, sim time is frozen until the first solution returns, and the guidance state is then shared with the simulation.</p>
 
       <h2>Results</h2>
-      <p><!-- TODO: write results / findings --></p>
+      <p>Inside the training distribution, the mission-informed model converged in 8.18 s against 9.99 s for the spherically trained model and 16.3 s for baseline SCvx with no warm start, roughly halving baseline solve time, with the lowest solve-time variance of the three across every test case.</p>
 
-      <div class="links-row" id="paperWrap" style="display: none;">
-        <a class="btn" id="paperLink" href="#" target="_blank" rel="noopener">Download Paper ↓</a>
+      <p>The tradeoff shows up outside that envelope. On fully out-of-distribution initial conditions the spherically trained model was faster, and under &plusmn;1% thrust noise the mission-informed model produced the largest landing dispersions. Specializing the warm start buys speed and consistency where it was trained and gives some of it back everywhere else.</p>
+
+      <div class="links-row">
+        <a class="btn" href="../media/lunar-landing/IEEE_Mission_specific_Trajectory_Dispersions_for_Warm_Starting_T_SCVx_Landing_Guidance.pdf" target="_blank" rel="noopener">Download Paper ↓</a>
       </div>
+      <p class="citation">W. Lee, C. Capps, J. Goldhammer, G. Chamitoff, "Mission-specific Trajectory Dispersions for T-SCVx Landing Guidance," accepted, 2026 IEEE Aerospace Conference. DOI: 10.1109/AERO66936.2026.11520104. © 2026 IEEE.</p>
     </section>
   </div>
 

@@ -45,13 +45,20 @@
       </div>
 
       <h2>Description</h2>
-      <p><!-- TODO: write a deeper description of the Orion docking project --></p>
+      <p>This started as a class project with a simple question: can a spacecraft dock using nothing but a camera? Orion's real docking guidance leans on a dedicated rendezvous sensor suite, which becomes a problem if that suite degrades during a cislunar comms blackout with no ground in the loop to help.</p>
+
+      <p>We trained three Decision Transformers by behavioral cloning of an LQR expert inside SpaceTeamsPRO: one on telemetry only, one on RGB and depth images only, and one on both. Each is conditioned on a return-to-go scalar so we could ask for fuel-efficient trajectories, and each runs MPC-style, replanning a 30-step horizon every tick and executing only the first action. The vision-only model is the interesting one, and we were strict about it. Its telemetry input is zeroed and past actions are kept out of the context, so it cannot quietly substitute its own command history for actually perceiving the target.</p>
+
+      <h2>Building It</h2>
+      <p>Most of the work was not the model. The vision models trained on a GTX 1650 Ti Max-Q, and our first full-scale architecture penciled out to over 150 GPU hours each, which was never going to happen before the deadline. Cutting it down to fit roughly 36 hours taught me more about scoping than about transformers. The other lesson was that a 5 Hz control loop will not wait for a ViT, so inference had to run on a background thread that publishes its most recent finished plan, with the LQR autopilot underneath as a fallback. We also bolted on an SVD monitor that flags when the observation history stops looking like the expert trajectories it was calibrated on.</p>
 
       <h2>Results</h2>
-      <p><!-- TODO: write results / findings --></p>
+      <p>The vision-only model docked on 68 of 69 randomized runs at 96.3 kg of fuel over 72.1 s, against the fused model's 96.4 kg and 69.1 s. Adding the state vector to a model that already sees RGB and depth did essentially nothing, which was not what I expected going in. The real gap was between both image-equipped models and the telemetry-only baseline at about 153 kg, roughly 57 kg more per docking.</p>
 
-      <div class="links-row" id="paperWrap" style="display: none;">
-        <a class="btn" id="paperLink" href="#" target="_blank" rel="noopener">Download Paper ↓</a>
+      <p>Telemetry does help in one place. Yaw was the weakest channel for vision-only against the expert (Pearson r = 0.92, versus 0.98 on roll) and fusion pulls it back to 0.94, which lines up with attitude transients being hard to read off a camera. The one vision-only failure timed out rather than diverging, with command error no worse than the successful runs. All of this is simulation only, and none of it has seen hardware.</p>
+
+      <div class="links-row">
+        <a class="btn" href="../media/orion-docking/HALO_D_Final_Report.pdf" target="_blank" rel="noopener">Download Report ↓</a>
       </div>
     </section>
   </div>

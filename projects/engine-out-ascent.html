@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Engine-Out Ascent Guidance — Carson Capps</title>
-  <meta name="description" content="Contingency ascent guidance for an engine-out scenario." />
+  <title>Fault-Tolerant Ascent Guidance — Carson Capps</title>
+  <meta name="description" content="Convex-QP thrust allocation and PEG ascent guidance for a 33-engine launch vehicle under engine-out faults." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233d6cd6%22/><text x=%2250%22 y=%2268%22 font-family=%22monospace%22 font-size=%2242%22 font-weight=%22700%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>CC</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,7 +36,7 @@
   <div class="wrap">
     <section class="project-detail">
       <a class="back-link" href="../index.html#projects">← Back to projects</a>
-      <h1>Engine-Out Ascent Guidance</h1>
+      <h1>Fault-Tolerant Ascent Guidance for a 33-Engine Booster</h1>
 
       <div class="video-card">
         <video controls>
@@ -45,14 +45,17 @@
       </div>
 
       <h2>Description</h2>
-      <p><!-- TODO: write a deeper description of the engine-out ascent project --></p>
+      <p>The vehicle is a two-stage Super Heavy/Starship-scale launcher with a 33-engine first stage: 3 center and 10 inner-ring engines that gimbal, and 20 outer-ring engines that are fixed and can only throttle. The question is whether the surviving cluster can be re-tasked fast enough to keep flying and still reach orbit when engines fail mid-ascent.</p>
+
+      <p>Fault tolerance splits across two layers. A convex QP allocator redistributes gimbal angles and throttle deltas across the surviving engines to reproduce the demanded moment, including differential throttling across the fixed outer ring so those 20 engines are not allocation dead weight. Above it, PEG-style guidance re-plans the trajectory against whatever performance the vehicle has left. The allocator handles instantaneous control authority, guidance handles the trajectory, and neither needs to know much about the other.</p>
+
+      <h2>Implementation</h2>
+      <p>I started with successive convexification, carrying over the approach from my descent work, and it converged poorly. Ascent is a different problem shape, long-horizon and thrust-dominated and far less naturally convex than powered descent, and the flight-proven algorithm family reflects that. I switched to classical Powered Explicit Guidance solved by Newton shooting, re-solved every 2 s and warm-started from the previous solution. </p>
 
       <h2>Results</h2>
-      <p><!-- TODO: write results / findings --></p>
+      <p>Across a 100-flight Monte Carlo with randomized failure count, timing, and engine identity, 94 flights recovered and reached orbit, 5 were lost, and 1 stayed intact without recovering. What predicts loss is not how many engines fail. A first failure inside the first 20 seconds lost the vehicle half the time, while none of the 38 flights failing after 40 seconds were lost, since an early failure arrives when the vehicle is heavy, slow, and has the least aerodynamic authority to trim a standing moment. </p>
 
-      <div class="links-row" id="paperWrap" style="display: none;">
-        <a class="btn" id="paperLink" href="#" target="_blank" rel="noopener">Download Paper ↓</a>
-      </div>
+      <p>As an outside check, the single vacuum-Raptor-out case reproduces the shape of Starship Flight 12: the vehicle survives, stays controlled, and falls short of orbit.</p>
     </section>
   </div>
 

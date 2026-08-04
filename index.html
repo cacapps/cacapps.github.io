@@ -10,13 +10,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Carson Capps" />
   <meta property="og:description" content="Aerospace engineering portfolio featuring guidance, navigation, and control projects including lunar landing guidance, autonomous Orion docking, and satellite ADCS flight software." />
-  <meta property="og:image" content="media/portraits/IMG_3804.JPG" />
+  <meta property="og:url" content="https://cacapps.github.io/" />
+  <meta property="og:image" content="https://cacapps.github.io/media/portraits/IMG_3804.JPG" />
 
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Carson Capps" />
   <meta name="twitter:description" content="Aerospace engineering portfolio featuring guidance, navigation, and control projects including lunar landing guidance, autonomous Orion docking, and satellite ADCS flight software." />
-  <meta name="twitter:image" content="media/portraits/IMG_3804.JPG" />
+  <meta name="twitter:image" content="https://cacapps.github.io/media/portraits/IMG_3804.JPG" />
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233d6cd6%22/><text x=%2250%22 y=%2268%22 font-family=%22monospace%22 font-size=%2242%22 font-weight=%22700%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>CC</text></svg>" />
 
@@ -48,6 +49,7 @@
 
   <div class="wrap">
     <section class="hero" id="about">
+      <div class="section-label">01 — About</div>
       <div class="hero-grid">
         <div class="headshot">
           <img src="media/portraits/IMG_3804.JPG" alt="Carson Capps headshot" />
@@ -57,35 +59,22 @@
 
           <p class="tagline">Aerospace Engineer | Graduate Research | GNC | Machine Learning</p>
 
-          <!-- TODO: 2-4 sentence bio. Good things to cover:
-               - who you are and what you focus on (e.g. guidance/navigation/control, flight software, autonomy)
-               - what draws you to the field / what kind of problems you like working on
-               - anything that signals credibility: school + program, research lab, notable project or role
-               - optional: what you're currently doing or looking for (internship, full-time, grad school) -->
-          <p class="bio"></p>
+          <p class="bio">I work on guidance, navigation, and control. My projects span powered descent, autonomous docking, engine-out ascent, and satellite attitude control, and most of them sit on the seam between classical optimal control and machine learning: convex trajectory optimization, transformer-based guidance policies, Kalman filtering, and the simulation infrastructure for verification and validation. </p>
 
-          <!-- TODO: Education
-               - Degree, major, minor (if any)
-               - School name
-               - Expected graduation date
-               - GPA / honors (optional, include if strong)
-               - Relevant coursework (optional, only the most relevant 4-6 classes) -->
+          <p class="bio">Research at Texas A&amp;M's ASTRO Center. Co-author on a 2026 IEEE Aerospace Conference paper on mission-informed warm starting for T-SCVx landing guidance, and ADCS sub-team lead on a ten-person autonomous servicing spacecraft design. Finishing an M.Eng. in Aerospace Engineering; looking for GNC, autonomy, and flight software roles.</p>
+
           <div class="about-block">
             <h3>Education</h3>
-            <p>Texas A&amp;M University - Master of Engineering in Aerospace Engineering (May 2027)<br> Texas A&amp;M University Bachelor of Science in Aerospace Engineering, GPA: 3.59</p>
+            <p>Texas A&amp;M University — Master of Engineering in Aerospace Engineering, GPA: 4.00 (May 2027)<br>
+            Texas A&amp;M University — Bachelor of Science in Aerospace Engineering, GPA: 3.59 (May 2026)</p>
           </div>
 
-          <!-- TODO: Skills
-               Group into a few short categories rather than one long list, e.g.:
-               - Languages: Python, C++, MATLAB, ...
-               - Tools/Frameworks: Simulink, ROS, Git, ...
-               - Domain: GNC, orbital mechanics, trajectory optimization, flight software, ...
-               Keep each list short (4-8 items) — this is a scannable reference, not exhaustive. -->
           <div class="about-block">
             <h3>Skills</h3>
             <p><strong>Languages:</strong> Python, C++, MATLAB<br />
             <strong>Tools:</strong> Git, PyTorch, NASA GMAT, SolidWorks, ANSYS<br />
             <strong>Concepts:</strong> GNC, Trajectory Optimization, Machine Learning, ADCS, Simulation and V&V</p>
+          </div>
         </div>
       </div>
     </section>
@@ -128,16 +117,16 @@
             <div class="tile contain">
               <img src="media/engine-out-ascent/thumbnail.png" alt="Engine-Out Ascent thumbnail" onerror="this.parentElement.classList.add('placeholder'); this.remove();" />
             </div>
-            <h2>Engine-Out Ascent Guidance</h2>
+            <h2>Fault-Tolerant Ascent Guidance for a 33-Engine Booster</h2>
           </a>
-          <p>Short description of the engine-out ascent project goes here.</p>
+          <p>Convex-QP thrust allocation under PEG guidance, tested over a 100-flight engine-out Monte Carlo.</p>
         </div>
       </div>
     </section>
 
     <section id="contact">
       <div class="section-label">03 — Contact</div>
-      <p class="contact-text"><!-- TODO: contact blurb --></p>
+      <p class="contact-text">I'm open to internships, full-time GNC and flight software roles. Always happy to talk through any of the work above. Please reach out!</p>
       <div class="links-row">
         <a class="btn" href="tel:+18064207772">(806) 420-7772</a>
         <a class="btn" href="mailto:ca.capps@tamu.edu">ca.capps@tamu.edu ↗</a>

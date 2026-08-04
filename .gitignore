@@ -2,3 +2,6 @@
 media/lunar-landing/*.mp4
 media/orion-docking/*.mp4
 media/auto-service-adcs/*.mp4
+
+# local tool config
+.claude/

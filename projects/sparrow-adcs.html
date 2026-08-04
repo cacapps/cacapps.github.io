@@ -45,13 +45,22 @@
       </div>
 
       <h2>Description</h2>
-      <p><!-- TODO: write a deeper description of the SPARROW ADCS flight software project --></p>
+      <p>SPARROW, the Spacecraft Platform for Autonomous Repair, Refuel and Orbital Work, was our team's entry to the COSMIC Capstone Challenge. It is a fully autonomous modular servicing spacecraft for LEO, carrying 4000 m/s of &Delta;V so it can reach several clients in one sortie, with two robotic arms riding circumferential tracks and hot-swappable payload compartments. Ten of us designed it over a semester under Dr. Manoranjan Majji.</p>
+
+      <p>I led the ADCS sub-team. The control architecture is deliberately boring in one respect: a single MRP proportional-derivative controller runs in every mission phase, and only the guidance reference changes between sun-pointing, ground-pointing, V-bar, LVLH, and target-pointing modes. Commanded torque maps to a four-wheel pyramid, and magnetic torquers desaturate the wheels when they fill up. Carrying one control law across the whole mission meant there was only one thing to tune and verify.</p>
+
+      <h2>Implementation</h2>
+      <p>Navigation is where the interesting choices were. An inertial UKF fuses star tracker and gyro measurements for attitude, but its output alone is not fast enough for the control loop, so a HybridNav module pairs the UKF attitude estimate with the IMU's raw angular rate to give the controller accurate pointing knowledge and high-rate feedback at the same time. A second square-root UKF estimates the sun line from eight coarse sun sensors, which is what drives eclipse detection. For orbit transfers, states propagate through the universal-variable form of Kepler's equation and Lambert's problem is solved across a grid of departure and flight times, picking the combination that minimizes total &Delta;V.</p>
+
+      <p>Verification ran in Basilisk with SPICE ephemerides, the WMM 2020 magnetic model, and Earth shadow geometry, against a 6-DOF rigid body truth model with navigation corrupted by noise pulled from the actual sensor datasheets.</p>
 
       <h2>Results</h2>
-      <p><!-- TODO: write results / findings --></p>
+      <p>We validated the design against a four-phase day in the life. SPARROW detumbles from 5 deg/s on every axis and settles into sun-pointing. It tracks White Sands through a 23-minute ground pass with battery state of charge staying positive across the sun to ground and back transition. A two-burn Hohmann transfer drops it from the 800 km parking orbit to 550 km with UKF attitude errors holding inside their 3&sigma; covariance bounds. It then closes on a Starlink client with Clohessy-Wiltshire glideslope hops at 100 m, 15 m, and 4 m, ending at 3.998 m relative distance.</p>
 
-      <div class="links-row" id="paperWrap" style="display: none;">
-        <a class="btn" id="paperLink" href="#" target="_blank" rel="noopener">Download Paper ↓</a>
+      <p>This is a preliminary design, and the results reflect that. Performance is demonstrated as filter consistency and phase completion rather than verified against the numeric pointing and relative-navigation requirements we wrote, which is the work that would come between here and an actual PDR.</p>
+
+      <div class="links-row">
+        <a class="btn" href="../media/auto-service-adcs/48x36_Engineering%20Project%20Showcase_Poster_SPARROW.pptx.pdf" target="_blank" rel="noopener">Download Poster ↓</a>
       </div>
     </section>
   </div>

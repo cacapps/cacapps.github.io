@@ -373,6 +373,38 @@ footer {
   background: #000;
 }
 
+.video-card img {
+  width: 100%;
+  display: block;
+  max-height: 75vh;
+  object-fit: contain;
+  background: #000;
+}
+
+.video-card.image-card {
+  background: none;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.video-card.image-card img {
+  width: auto;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.figure { margin: 22px 0; }
+
+.figure img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
 .video-card .video-embed {
   position: relative;
   width: 100%;

@@ -52,10 +52,16 @@
       <h2>Implementation</h2>
       <p>I started with successive convexification, carrying over the approach from my descent work, and it converged poorly. Ascent is a different problem shape, long-horizon and thrust-dominated and far less naturally convex than powered descent, and the flight-proven algorithm family reflects that. I switched to classical Powered Explicit Guidance solved by Newton shooting, re-solved every 2 s and warm-started from the previous solution. </p>
 
+      <p>I built the closed-loop testbed around both layers: 6-DoF dynamics with propellant depletion shifting mass and center of mass, atmospheric drag and aerodynamic torque, and stage separation, wrapped in a Monte Carlo harness that randomizes failure count, timing, and engine identity. The allocator itself solves a bounded QP over gimbal angles and throttle deltas, linearized about nominal thrust, with a nonlinear allocator running alongside as a check on the linearization.</p>
+
       <h2>Results</h2>
       <p>Across a 100-flight Monte Carlo with randomized failure count, timing, and engine identity, 94 flights recovered and reached orbit, 5 were lost, and 1 stayed intact without recovering. What predicts loss is not how many engines fail. A first failure inside the first 20 seconds lost the vehicle half the time, while none of the 38 flights failing after 40 seconds were lost, since an early failure arrives when the vehicle is heavy, slow, and has the least aerodynamic authority to trim a standing moment. </p>
 
       <p>As an outside check, the single vacuum-Raptor-out case reproduces the shape of Starship Flight 12: the vehicle survives, stays controlled, and falls short of orbit.</p>
+
+      <div class="links-row">
+        <a class="btn" href="https://github.com/cacapps/ascent-gnc" target="_blank" rel="noopener">Code on GitHub ↗</a>
+      </div>
     </section>
   </div>
 

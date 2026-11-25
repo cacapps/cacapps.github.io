@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lunar Landing Guidance — Carson Capps</title>
-  <meta name="description" content="Lunar Landing Guidance — transformer-based successive convexification for GNC." />
+  <meta name="description" content="Lunar landing guidance using transformer-based successive convexification for GNC." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233d6cd6%22/><text x=%2250%22 y=%2268%22 font-family=%22monospace%22 font-size=%2242%22 font-weight=%22700%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>CC</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,7 +36,7 @@
   <div class="wrap">
     <section class="project-detail">
       <a class="back-link" href="../index.html#projects">← Back to projects</a>
-      <h1>Lunar Landing Guidance - Transformer-based Successive Convexification</h1>
+      <h1>Lunar Landing Guidance: Transformer-based Successive Convexification</h1>
 
       <div class="video-card">
         <div class="video-embed">
@@ -47,7 +47,7 @@
       <h2>Description</h2>
       <p>The guidance problem is 6-DoF fuel-optimal powered descent with free final time, solved by successive convexification. Each iteration linearizes the nonconvex dynamics about the previous solution and solves the resulting convex subproblem in CVXPY/ECOS under a trust region, subject to glideslope, tilt, gimbal, and thrust constraints.</p>
 
-      <p>SCvx converges from a naive straight-line initial guess. However, T-SCVx replaces that guess with a learned prediction of the full trajectory so the solver starts near the solution manifold. The paper's contribution is the training distribution: rather than scattering initial conditions spherically around the nominal injection point, we trained on mission-informed dispersions generated from a GMAT NRHO to LLO transfer with an underperforming engine model, so the warm starts cover the errors the mission actually produces.</p>
+      <p>SCvx converges from a naive straight-line initial guess. However, T-SCvx replaces that guess with a learned prediction of the full trajectory so the solver starts near the solution manifold. The paper's contribution is the training distribution: rather than scattering initial conditions spherically around the nominal injection point, we trained on mission-informed dispersions generated from a GMAT NRHO to LLO transfer with an underperforming engine model, so the warm starts cover the errors the mission actually produces.</p>
 
       <h2>Implementation</h2>
       <p>The warm-start network took several architectures to get right. A single model predicting the whole trajectory at once fit the training data but returned guesses that were not physically realizable. In the end, what worked was smaller predictions each conditioned on everything predicted before it, and imposing the boundary conditions directly instead of learning them so the guess always satisfies its own endpoints.</p>
@@ -62,7 +62,7 @@
       <div class="links-row">
         <a class="btn" href="../media/lunar-landing/IEEE_Mission_specific_Trajectory_Dispersions_for_Warm_Starting_T_SCVx_Landing_Guidance.pdf" target="_blank" rel="noopener">Download Paper ↓</a>
       </div>
-      <p class="citation">W. Lee, C. Capps, J. Goldhammer, G. Chamitoff, "Mission-specific Trajectory Dispersions for T-SCVx Landing Guidance," accepted, 2026 IEEE Aerospace Conference. DOI: 10.1109/AERO66936.2026.11520104. © 2026 IEEE.</p>
+      <p class="citation">W. Lee, C. Capps, J. Goldhammer, G. Chamitoff, "Mission-specific Trajectory Dispersions for T-SCVx Landing Guidance," 2026 IEEE Aerospace Conference, Mar. 2026. DOI: 10.1109/AERO66936.2026.11520104. © 2026 IEEE.</p>
     </section>
   </div>
 

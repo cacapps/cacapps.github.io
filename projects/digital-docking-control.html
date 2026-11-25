@@ -43,7 +43,7 @@
       </div>
 
       <h2>Description</h2>
-      <p>The plant is Orion's translational motion relative to a target in a 400 km circular orbit: the Clohessy-Wiltshire equations, augmented with a 0.1 s first-order lag on each RCS acceleration channel, for nine states and three inputs. The controller samples at 1 s, and every design has to step 1 m on each axis without exceeding 0.03 m/s² of commanded acceleration, 0.3 m/s³ of acceleration rate, or 0.1 m/s of velocity.</p>
+      <p>The plant is Orion's translational motion relative to a target in a 400 km circular orbit: the Clohessy-Wiltshire equations, augmented with a 0.1 s first-order lag on each RCS acceleration channel, for nine states and three inputs. The controller samples at 1 s, and every design has to move the vehicle 1 m on each axis without exceeding 0.03 m/s² of commanded acceleration, 0.3 m/s³ of acceleration rate, or 0.1 m/s of velocity.</p>
 
       <p>I built four controllers that each add one piece to the last: a sampled-data regulator, then integral action (PI-SDR), nonzero setpoint tracking (NZSP), and both together (PI-NZSP). Every gain set comes from a discrete LQR derived from a continuous cost, and the three tracking designs share the same weights, so the comparison shows what each structure buys against a constant disturbance and the actuator limits.</p>
 
@@ -54,6 +54,10 @@
         <img src="../media/digital-control/pinzsp-actuators.png" alt="PI-NZSP actuator response: commanded and actual acceleration and acceleration rate on each axis, staying inside the 0.03 m/s² and 0.3 m/s³ limits" />
         <figcaption class="citation">PI-NZSP actuator commands under a constant disturbance, inside the 0.03 m/s² and 0.3 m/s³ limits.</figcaption>
       </figure>
+
+      <div class="links-row">
+        <a class="btn" href="https://github.com/cacapps/orion-docking-digital-control" target="_blank" rel="noopener">Code on GitHub ↗</a>
+      </div>
     </section>
   </div>
 
